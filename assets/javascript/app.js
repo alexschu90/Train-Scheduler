@@ -43,7 +43,6 @@ var firebaseConfig = {
     var nFrequency = childSnapshot.val().frequency;
 
     var firstTimeConverted = moment(fTrain, "HH:mm").subtract(1, "years");
-    var currentTime = moment(); 
     var diffTime = moment().diff(moment(firstTimeConverted), "minutes");
     var tRemaining = diffTime % nFrequency;
     var minutesAway = nFrequency - tRemaining;
