@@ -29,11 +29,6 @@ var firebaseConfig = {
 
       database.ref().push(trainInfo);
 
-      console.log(trainInfo.name);
-      console.log(trainInfo.destination);
-      console.log(trainInfo.first);
-      console.log(trainInfo.frequency);
-
       $("#train-name-input").val("");
       $("#destination-input").val("");
       $("#first-train-time-input").val("");
@@ -41,35 +36,18 @@ var firebaseConfig = {
   })
 
   database.ref().on("child_added", function(childSnapshot) {
-    console.log(childSnapshot.val());
 
     var nTrainName = childSnapshot.val().name;
     var nDestination = childSnapshot.val().destination;
     var fTrain = childSnapshot.val().first;
     var nFrequency = childSnapshot.val().frequency;
 
-    console.log(nTrainName);
-    console.log(nDestination);
-    console.log(nFrequency);
-
-var firstTimeConverted = moment(fTrain, "HH:mm").subtract(1, "years");
-console.log(firstTimeConverted);
-
-var currentTime = moment(); 
-console.log("CURRENT TIME: " + moment(currentTime).format("hh:mm"));
-
-var diffTime = moment().diff(moment(firstTimeConverted), "minutes");
-console.log("DIFFERENCE IN TIME: " + diffTime);
-
-var tRemaining = diffTime % nFrequency;
-console.log(tRemaining);
-
-var minutesAway = nFrequency - tRemaining;
-console.log("MINUTES TILL TRAIN: " + minutesAway);
-
-var nextArrival = moment().add(minutesAway, "minutes");
-console.log("ARRIVAL TIME: " + moment(nextArrival).format("hh:mm"));
-
+    var firstTimeConverted = moment(fTrain, "HH:mm").subtract(1, "years");
+    var currentTime = moment(); 
+    var diffTime = moment().diff(moment(firstTimeConverted), "minutes");
+    var tRemaining = diffTime % nFrequency;
+    var minutesAway = nFrequency - tRemaining;
+    var nextArrival = moment().add(minutesAway, "minutes");
 
     var newRow = $("<tr>").append(
         $("<td>").text(nTrainName),
